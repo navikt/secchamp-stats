@@ -2,7 +2,7 @@
 
 ![workflow](https://github.com/nais/secchamp-stats/actions/workflows/main.yaml/badge.svg)
 
-More to come...
+Creates a "data product" with some security related stats such as Snyk adoption.
 
 ## ⌨️ Usage
 
