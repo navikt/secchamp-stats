@@ -1,0 +1,23 @@
+name: Build main
+
+on:
+   push:
+      branches:
+         - main
+      paths-ignore:
+         - "*.md"
+
+jobs:
+   build:
+      name: Build all the things
+      runs-on: ubuntu-20.04
+      steps:
+         -  uses: actions/checkout@v2
+         -  uses: actions/setup-java@v2
+            with:
+               java-version: '17'
+               distribution: 'adopt'
+               cache: 'gradle'
+         -  uses: gradle/wrapper-validation-action@v1
+         -  name: Build and test the app
+            run: ./gradlew clean test shadowJar
