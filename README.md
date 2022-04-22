@@ -1,6 +1,6 @@
 # secchamp-stats
 
-![workflow](https://github.com/nais/secchamp-stats/actions/workflows/main.yaml/badge.svg)
+![workflow](https://github.com/navikt/secchamp-stats/actions/workflows/main.yaml/badge.svg)
 
 Creates a "data product" with some security related stats such as Snyk adoption.
 
