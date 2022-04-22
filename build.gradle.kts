@@ -1,3 +1,4 @@
+val ktorVersion = "2.0.0"
 val logbackVersion = "1.2.11"
 val logstashEncoderVersion = "7.1.1"
 val junitJupiterVersion = "5.8.2"
@@ -21,6 +22,9 @@ java {
 
 dependencies {
    implementation(kotlin("stdlib"))
+   implementation("io.ktor:ktor-client-cio:$ktorVersion")
+   implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
+   implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
    implementation("ch.qos.logback:logback-classic:$logbackVersion")
    implementation("net.logstash.logback:logstash-logback-encoder:$logstashEncoderVersion")
 
@@ -51,6 +55,7 @@ tasks {
    withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
       kotlinOptions {
          jvmTarget = "17"
+         freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
       }
    }
 
