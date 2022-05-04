@@ -1,1 +1,0 @@
-{"query":"{     repos: search(query: \"user:navikt fork:false archived:false\", type: REPOSITORY, first: 1) {         repositoryCount     } }","variables":{}}

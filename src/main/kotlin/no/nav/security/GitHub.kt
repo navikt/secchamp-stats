@@ -9,8 +9,9 @@ import java.net.URL
 
 class GitHub constructor(private val http: HttpClient, private val accessToken: String? = null) {
     private val url = URL("https://api.github.com/graphql")
-    private val requestBody = GitHub::class.java.getResource("/repocountquery.graphql")
-        ?.readText()?.replace("\n", " ")
+    private val requestBody = """
+        {"query":"{ repos: search(query: \"user:navikt fork:false archived:false\", type: REPOSITORY, first: 1) { repositoryCount}}","variables":{}}        
+    """.trimIndent()
 
     suspend fun repoCount(): Int {
         val rawResponse: JsonObject = http.post(url) {

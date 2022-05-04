@@ -14,7 +14,13 @@ val logger: Logger = LoggerFactory.getLogger("secchamp-stats")
 
 fun main() = runBlocking {
     val gitHub = GitHub(httpCLient(), requiredFromEnv("GH_TOKEN"))
-    logger.info("found ${gitHub.repoCount()} non-archived repos on gh")
+    val snyk = Snyk(httpCLient(), requiredFromEnv("SNYK_TOKEN"))
+    val ghRepoCount = gitHub.repoCount()
+    val snykOrgs = snyk.orgs()
+    val snykIssues = snyk.issuesFor(snykOrgs)
+    logger.info("found $ghRepoCount non-archived repos on gh")
+    logger.info("snyk orgs: ${snykOrgs.size}")
+    logger.info("issues: $snykIssues")
 }
 
 

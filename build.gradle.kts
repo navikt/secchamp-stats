@@ -1,4 +1,4 @@
-val ktorVersion = "2.0.0"
+val ktorVersion = "2.0.1"
 val logbackVersion = "1.2.11"
 val logstashEncoderVersion = "7.1.1"
 val junitJupiterVersion = "5.8.2"
@@ -13,6 +13,10 @@ plugins {
 
 repositories {
    mavenCentral()
+   maven {
+      url = uri("https://maven.pkg.jetbrains.space/public/p/ktor/eap")
+      name = "ktor-eap"
+   }
 }
 
 java {
@@ -22,11 +26,11 @@ java {
 
 dependencies {
    implementation(kotlin("stdlib"))
-   implementation("io.ktor:ktor-client-cio:$ktorVersion")
    implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
    implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
    implementation("ch.qos.logback:logback-classic:$logbackVersion")
    implementation("net.logstash.logback:logstash-logback-encoder:$logstashEncoderVersion")
+   implementation("io.ktor:ktor-client-cio-jvm:$ktorVersion")
 
    testImplementation("org.junit.jupiter:junit-jupiter-api:$junitJupiterVersion")
    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junitJupiterVersion")
