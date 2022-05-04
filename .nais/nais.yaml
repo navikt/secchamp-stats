@@ -8,3 +8,5 @@ metadata:
 spec:
   image: ghcr.io/navikt/secchamp-stats:c5f9e50
   schedule: "0 23 * * *"
+  envFrom:
+    - secret: secchamp-stats-config
