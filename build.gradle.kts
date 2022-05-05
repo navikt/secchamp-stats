@@ -2,6 +2,7 @@ val ktorVersion = "2.0.1"
 val logbackVersion = "1.2.11"
 val logstashEncoderVersion = "7.1.1"
 val junitJupiterVersion = "5.8.2"
+val bigQueryClientVersion = "2.10.10"
 
 val mainClassName = "no.nav.security.MainKt"
 
@@ -27,6 +28,8 @@ dependencies {
    implementation("ch.qos.logback:logback-classic:$logbackVersion")
    implementation("net.logstash.logback:logstash-logback-encoder:$logstashEncoderVersion")
    implementation("io.ktor:ktor-client-cio-jvm:$ktorVersion")
+
+   implementation("com.google.cloud:google-cloud-bigquery:$bigQueryClientVersion")
 
    testImplementation("org.junit.jupiter:junit-jupiter-api:$junitJupiterVersion")
    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junitJupiterVersion")

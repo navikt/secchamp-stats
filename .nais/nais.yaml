@@ -10,3 +10,7 @@ spec:
   schedule: "0 23 * * *"
   envFrom:
     - secret: secchamp-stats-config
+  gcp:
+    bigQueryDatasets:
+      - name: snyk_issue_count
+        permission: READWRITE
