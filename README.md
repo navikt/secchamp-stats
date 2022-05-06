@@ -2,11 +2,11 @@
 
 ![workflow](https://github.com/navikt/secchamp-stats/actions/workflows/main.yaml/badge.svg)
 
-Creates a "data product" with some security related stats such as Snyk adoption.
+Creates a ["Dataprodukt"](https://docs.knada.io/dele-data/dataprodukt/) with some security related stats such as Snyk adoption.
 
 ## ⌨️ Usage
 
-More to come...
+This app is run as a [Naisjob](https://doc.nais.io/naisjob/) at a fixed interval, no manual steps are required.
 
 ## ⚖️ License
 [MIT](LICENSE).
