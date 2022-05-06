@@ -6,7 +6,7 @@ metadata:
   name:  secchamp-stats
   namespace: security-champion-admin
 spec:
-  image: ghcr.io/navikt/secchamp-stats:9a8eb14
+  image: {{ image }}
   schedule: "0 23 * * *"
   envFrom:
     - secret: secchamp-stats-config
