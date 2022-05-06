@@ -6,7 +6,7 @@ import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.ExperimentalSerializationApi
-import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.*
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
@@ -15,14 +15,34 @@ val logger: Logger = LoggerFactory.getLogger("secchamp-stats")
 fun main() = runBlocking {
     val gitHub = GitHub(httpCLient(), requiredFromEnv("GH_TOKEN"))
     val snyk = Snyk(httpCLient(), requiredFromEnv("SNYK_TOKEN"))
+    val bq = BigQuery()
     val ghRepoCount = gitHub.repoCount()
     val snykOrgs = snyk.orgs()
-    val snykIssues = snyk.issuesFor(snykOrgs)
-    logger.info("found $ghRepoCount non-archived repos on gh")
-    logger.info("snyk orgs: ${snykOrgs.size}")
-    logger.info("issues: $snykIssues")
+    val issuesBySeverity = bySeverity(snyk.issuesFor(snykOrgs))
+    println(snyk.issuesFor(snykOrgs))
+    bq.insert(
+        IssueCountRecord(
+            ghRepoCount = ghRepoCount,
+            critical = issuesBySeverity["critical"] ?: 0,
+            high = issuesBySeverity["high"] ?: 0,
+            medium = issuesBySeverity["medium"] ?: 0,
+            low = issuesBySeverity["low"] ?: 0
+        )
+    ).fold(
+        { logger.info("Inserted $it rows") },
+        { logger.error("An error occurred: ${it.message}") }
+    )
 }
 
+fun bySeverity(raw: JsonObject) =
+    raw["results"]?.jsonArray?.get(0)?.jsonObject?.get(("severity"))?.jsonObject?.let {
+        mapOf(
+            "critical" to it["critical"]?.jsonPrimitive?.int,
+            "high" to it["high"]?.jsonPrimitive?.int,
+            "medium" to it["medium"]?.jsonPrimitive?.int,
+            "low" to it["low"]?.jsonPrimitive?.int
+        )
+    } ?: throw RuntimeException("error while parsing json")
 
 @OptIn(ExperimentalSerializationApi::class)
 private fun httpCLient() = HttpClient(CIO) {
