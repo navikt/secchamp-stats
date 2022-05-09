@@ -34,8 +34,10 @@ class BigQuery(projectID: String) {
             "issues_low" to record.low,
             "when_collected" to DateTime(record.whenCreated.toEpochMilli())
         )
-        val response = bq.insertAll(InsertAllRequest.newBuilder(TableId.of(datasetName, tableName))
-            .addRow(UUID.randomUUID().toString(), rowContent).build())
+        val response = bq.insertAll(
+            InsertAllRequest.newBuilder(TableId.of(datasetName, tableName))
+                .addRow(UUID.randomUUID().toString(), rowContent).build()
+        )
         if (response.hasErrors()) {
             throw RuntimeException(response.insertErrors.map { it.value.toString() }.joinToString())
         }

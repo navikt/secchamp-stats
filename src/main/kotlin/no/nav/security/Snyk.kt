@@ -12,11 +12,9 @@ class Snyk constructor(private val http: HttpClient, private val accessToken: St
     private val baseUrl = "https://snyk.io/api/v1"
 
     suspend fun orgs(): List<String>  = http.get("$baseUrl/orgs") {
-            accessToken?.let {
-                header(Authorization, "token $it")
-            }
-        }.body<JsonObject>().jsonObject["orgs"]?.jsonArray?.map {
-            it.jsonObject["id"].toString().trim('"')
+        accessToken?.let { header(Authorization, "token $it") }
+    }.body<JsonObject>().jsonObject["orgs"]?.jsonArray?.map {
+        it.jsonObject["id"].toString().trim('"')
     } ?: emptyList()
 
     suspend fun issuesFor(orgs: List<String>): JsonObject =

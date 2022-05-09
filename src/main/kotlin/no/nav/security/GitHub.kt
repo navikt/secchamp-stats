@@ -15,9 +15,7 @@ class GitHub constructor(private val http: HttpClient, private val accessToken: 
 
     suspend fun repoCount(): Int {
         val rawResponse: JsonObject = http.post(url) {
-            accessToken?.let {
-                header(HttpHeaders.Authorization, "Bearer $it")
-            }
+            accessToken?.let { header(HttpHeaders.Authorization, "Bearer $it") }
             setBody(requestBody)
         }.body()
         val gqlResponse = GraphQLResponse(rawResponse)
