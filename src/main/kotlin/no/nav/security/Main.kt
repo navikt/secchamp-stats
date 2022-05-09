@@ -9,6 +9,7 @@ import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.*
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import kotlin.system.exitProcess
 
 val logger: Logger = LoggerFactory.getLogger("secchamp-stats")
 
@@ -29,7 +30,7 @@ fun main() = runBlocking {
         )
     ).fold(
         { logger.info("Inserted issues for ${snykOrgs.size} Snyk orgs with $ghRepoCount GitHub repos") },
-        { logger.error("An error occurred: ${it.message}") }
+        { logger.error("An error occurred: ${it.message}"); exitProcess(1) }
     )
 }
 
