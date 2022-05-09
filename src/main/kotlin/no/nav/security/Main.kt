@@ -19,7 +19,6 @@ fun main() = runBlocking {
     val ghRepoCount = gitHub.repoCount()
     val snykOrgs = snyk.orgs()
     val issuesBySeverity = bySeverity(snyk.issuesFor(snykOrgs))
-    println(snyk.issuesFor(snykOrgs))
     bq.insert(
         IssueCountRecord(
             ghRepoCount = ghRepoCount,
@@ -29,7 +28,7 @@ fun main() = runBlocking {
             low = issuesBySeverity["low"] ?: 0
         )
     ).fold(
-        { logger.info("Inserted $it rows") },
+        { logger.info("Inserted issues for $snykOrgs Snyk orgs with $ghRepoCount GitHub repos") },
         { logger.error("An error occurred: ${it.message}") }
     )
 }
