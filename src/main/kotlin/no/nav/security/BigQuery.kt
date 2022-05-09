@@ -6,8 +6,11 @@ import java.time.Instant
 import java.util.*
 
 
-class BigQuery {
-    private val bq = BigQueryOptions.getDefaultInstance().service
+class BigQuery(projectID: String) {
+    private val bq = BigQueryOptions.newBuilder()
+        .setProjectId(projectID)
+        .build()
+        .service
 
     private val datasetName = "snyk_issue_count"
     private val tableName = "snyk_issues"
