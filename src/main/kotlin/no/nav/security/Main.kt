@@ -28,7 +28,7 @@ fun main() = runBlocking {
             low = issuesBySeverity["low"] ?: 0
         )
     ).fold(
-        { logger.info("Inserted issues for $snykOrgs Snyk orgs with $ghRepoCount GitHub repos") },
+        { logger.info("Inserted issues for ${snykOrgs.size} Snyk orgs with $ghRepoCount GitHub repos") },
         { logger.error("An error occurred: ${it.message}") }
     )
 }
