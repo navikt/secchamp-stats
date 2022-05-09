@@ -7,7 +7,7 @@ metadata:
   namespace: security-champion-admin
 spec:
   image: {{ image }}
-  schedule: "0 23 * * *"
+  schedule: {{ schedule }}
   envFrom:
     - secret: secchamp-stats-config
   gcp:
