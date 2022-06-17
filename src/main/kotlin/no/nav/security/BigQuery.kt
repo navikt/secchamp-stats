@@ -23,7 +23,7 @@ class BigQuery(projectID: String) {
         .service
 
     private val datasetName = "snyk_issue_count"
-    private val tableName = "snyk_issues"
+    private val tableName = "issues_by_project"
     private val schema =
         Schema.of(
             Field.of("when_collected", StandardSQLTypeName.TIMESTAMP),
