@@ -1,5 +1,6 @@
 package no.nav.security
 
+import com.google.cloud.Timestamp
 import com.google.cloud.bigquery.BigQueryOptions
 import com.google.cloud.bigquery.Field
 import com.google.cloud.bigquery.InsertAllRequest
@@ -12,6 +13,7 @@ import com.google.cloud.bigquery.TableDefinition
 import com.google.cloud.bigquery.TableId
 import com.google.cloud.bigquery.TableInfo
 import java.time.Instant
+import java.util.Date
 import java.util.UUID
 
 
@@ -40,7 +42,7 @@ class BigQuery(projectID: String) {
             RowToInsert.of(UUID.randomUUID().toString(), mapOf(
                 "project" to it.project,
                 "type" to it.type,
-                "when_collected" to QueryParameterValue.timestamp(it.whenCreated.epochSecond),
+                "when_collected" to Timestamp.of(Date.from(it.whenCreated)),
                 "issues_critical" to it.critical,
                 "issues_high" to it.high,
                 "issues_medium" to it.medium,
