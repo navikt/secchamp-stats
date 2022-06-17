@@ -1,4 +1,4 @@
-val ktorVersion = "2.0.1"
+val ktorVersion = "2.0.2"
 val logbackVersion = "1.2.11"
 val logstashEncoderVersion = "7.1.1"
 val junitJupiterVersion = "5.8.2"
@@ -32,6 +32,7 @@ dependencies {
    implementation("com.google.cloud:google-cloud-bigquery:$bigQueryClientVersion")
 
    testImplementation("org.junit.jupiter:junit-jupiter-api:$junitJupiterVersion")
+   testImplementation("org.junit.jupiter:junit-jupiter-params:$junitJupiterVersion")
    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junitJupiterVersion")
 }
 

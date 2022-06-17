@@ -63,19 +63,3 @@ jobs:
               IMAGE: ${{ steps.dockertag.outputs.docker_img }}
               VARS: .nais/dev.yaml
 
-   deploy_to_prod:
-     name: Deploy to prod
-     needs: deploy_to_dev
-     runs-on: ubuntu-20.04
-     steps:
-       - uses: actions/checkout@v2
-       - name: Generate Docker image tag
-         id: dockertag
-         run: echo "::set-output name=docker_img::ghcr.io/${{ github.repository }}:$(git rev-parse --short HEAD)"
-       - uses: nais/deploy/actions/deploy@v1
-         env:
-           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
-           CLUSTER: prod-gcp
-           RESOURCE: .nais/nais.yaml,.nais/alerts.yaml
-           IMAGE: ${{ steps.dockertag.outputs.docker_img }}
-           VARS: .nais/prod.yaml
