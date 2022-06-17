@@ -5,7 +5,6 @@ import com.google.cloud.bigquery.BigQueryOptions
 import com.google.cloud.bigquery.Field
 import com.google.cloud.bigquery.InsertAllRequest
 import com.google.cloud.bigquery.InsertAllRequest.RowToInsert
-import com.google.cloud.bigquery.QueryParameterValue
 import com.google.cloud.bigquery.Schema
 import com.google.cloud.bigquery.StandardSQLTypeName
 import com.google.cloud.bigquery.StandardTableDefinition
