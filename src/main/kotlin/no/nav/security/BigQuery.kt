@@ -4,6 +4,7 @@ import com.google.cloud.bigquery.BigQueryOptions
 import com.google.cloud.bigquery.Field
 import com.google.cloud.bigquery.InsertAllRequest
 import com.google.cloud.bigquery.InsertAllRequest.RowToInsert
+import com.google.cloud.bigquery.QueryParameterValue
 import com.google.cloud.bigquery.Schema
 import com.google.cloud.bigquery.StandardSQLTypeName
 import com.google.cloud.bigquery.StandardTableDefinition
@@ -39,7 +40,7 @@ class BigQuery(projectID: String) {
             RowToInsert.of(UUID.randomUUID().toString(), mapOf(
                 "project" to it.project,
                 "type" to it.type,
-                "when_collected" to it.whenCreated,
+                "when_collected" to QueryParameterValue.timestamp(it.whenCreated.epochSecond),
                 "issues_critical" to it.critical,
                 "issues_high" to it.high,
                 "issues_medium" to it.medium,
