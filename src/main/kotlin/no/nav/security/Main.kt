@@ -19,7 +19,7 @@ fun main() = runBlocking {
     val issues = snyk.issueCountsFor(snykOrgs)
     logger.info("Found ${issues.size} Snyk projects")
     val rows = bq.insert(issues.map(::toRecord))
-    logger.info("Done, inserted $rows rows")
+    logger.info("Done, inserted ${rows.getOrNull()} rows")
 }
 
 @OptIn(ExperimentalSerializationApi::class)
