@@ -17,8 +17,9 @@ fun main() = runBlocking {
     val bq = BigQuery(requiredFromEnv("GCP_TEAM_PROJECT_ID"))
     val snykOrgs = snyk.orgs()
     val issues = snyk.issueCountsFor(snykOrgs)
+    logger.info("Found ${issues.size} Snyk projects")
     val rows = bq.insert(issues.map(::toRecord))
-    logger.info("done, inserted $rows rows")
+    logger.info("Done, inserted $rows rows")
 }
 
 @OptIn(ExperimentalSerializationApi::class)
