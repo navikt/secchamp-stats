@@ -2,7 +2,7 @@
 
 ![workflow](https://github.com/navikt/secchamp-stats/actions/workflows/main.yaml/badge.svg)
 
-Creates a ["Dataprodukt"](https://docs.knada.io/dele-data/dataprodukt/) with some security related stats such as Snyk adoption.
+Creates a ["Dataprodukt"](https://docs.knada.io/dataprodukter/definisjon/) with some security related stats such as Snyk adoption.
 
 ## ⌨️ Usage
 
