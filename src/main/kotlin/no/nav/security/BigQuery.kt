@@ -34,7 +34,7 @@ class BigQuery(projectID: String) {
         )
 
     fun insert(records: List<IssueCountRecord>) = runCatching {
-        createTableIfNotExists()
+        createOrUpdateTableSchema()
         val rows = records.map {
             RowToInsert.of(UUID.randomUUID().toString(), mapOf(
                 "when_collected" to it.whenCreated.epochSecond,
@@ -57,12 +57,16 @@ class BigQuery(projectID: String) {
         records.size
     }
 
-    private fun createTableIfNotExists() {
+    private fun createOrUpdateTableSchema() {
         val tableId = TableId.of(datasetName, tableName)
-        val tableExists = bq.getTable(tableId) != null
-        if (!tableExists) {
-            val tableDefinition: TableDefinition = StandardTableDefinition.of(schema)
-            val tableInfo = TableInfo.newBuilder(tableId, tableDefinition).build()
+        val table = bq.getTable(tableId)
+        val tableExists = table != null
+        val tableDefinition: TableDefinition = StandardTableDefinition.of(schema)
+        val tableInfo = TableInfo.newBuilder(tableId, tableDefinition).build()
+
+        if (tableExists) {
+            bq.update(tableInfo)
+        } else {
             bq.create(tableInfo)
         }
     }
