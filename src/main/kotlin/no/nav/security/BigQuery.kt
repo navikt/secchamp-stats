@@ -25,6 +25,7 @@ class BigQuery(projectID: String) {
     private val schema =
         Schema.of(
             Field.of("when_collected", StandardSQLTypeName.TIMESTAMP),
+            Field.of("org", StandardSQLTypeName.STRING),
             Field.of("project", StandardSQLTypeName.STRING),
             Field.of("type", StandardSQLTypeName.STRING),
             Field.of("issues_critical", StandardSQLTypeName.INT64),
