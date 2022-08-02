@@ -20,7 +20,7 @@ fun main() = runBlocking {
     logger.info("Found ${orgs.size} Snyk organizations")
 
     val projectIssueCounts =
-        orgs.flatMap { org -> org.projects.filter { it.hasIssues() }.map { project -> toRecord(org.org, project) } }
+        orgs.flatMap { org -> org.projects.map { project -> toRecord(org.org, project) } }
     val rows = bq.insert(projectIssueCounts)
     logger.info("Done, inserted ${rows.getOrNull()} rows")
 }
