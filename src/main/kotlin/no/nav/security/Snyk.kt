@@ -26,8 +26,6 @@ class Snyk constructor(private val http: HttpClient, private val accessToken: St
     suspend fun issueCountsFor(orgs: List<String>) = withContext(IO) {
         orgs.map { async { requestIssuesFor(it) } }
             .awaitAll()
-            .flatMap { it.projects }
-            .filter { it.hasIssues() }
     }
 
     private suspend fun requestIssuesFor(org: String): AllProjectsResponse =

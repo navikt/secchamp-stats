@@ -39,6 +39,7 @@ class BigQuery(projectID: String) {
         val rows = records.map {
             RowToInsert.of(UUID.randomUUID().toString(), mapOf(
                 "when_collected" to it.whenCreated.epochSecond,
+                "org" to it.org,
                 "project" to it.project,
                 "type" to it.type,
                 "issues_critical" to it.critical,
@@ -75,6 +76,7 @@ class BigQuery(projectID: String) {
 
 class IssueCountRecord(
     val whenCreated: Instant = Instant.now(),
+    val org: String,
     val project: String,
     val type: String,
     val critical: Int,

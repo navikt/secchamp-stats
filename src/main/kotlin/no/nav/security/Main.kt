@@ -16,9 +16,12 @@ fun main() = runBlocking {
     val snyk = Snyk(httpCLient(), requiredFromEnv("SNYK_TOKEN"))
     val bq = BigQuery(requiredFromEnv("GCP_TEAM_PROJECT_ID"))
     val snykOrgs = snyk.orgs()
-    val issues = snyk.issueCountsFor(snykOrgs)
-    logger.info("Found ${issues.size} Snyk projects")
-    val rows = bq.insert(issues.map(::toRecord))
+    val orgs = snyk.issueCountsFor(snykOrgs)
+    logger.info("Found ${orgs.size} Snyk organizations")
+
+    val projectIssueCounts =
+        orgs.flatMap { org -> org.projects.filter { it.hasIssues() }.map { project -> toRecord(org.org, project) } }
+    val rows = bq.insert(projectIssueCounts)
     logger.info("Done, inserted ${rows.getOrNull()} rows")
 }
 
@@ -38,7 +41,8 @@ private fun requiredFromEnv(name: String) =
         ?: System.getenv(name)
         ?: throw RuntimeException("unable to find '$name' in environment")
 
-private fun toRecord(project: Project) = IssueCountRecord(
+private fun toRecord(org: Organization, project: Project) = IssueCountRecord(
+    org = org.name,
     project = project.name,
     type = project.type,
     critical = project.issueCountsBySeverity.critical,
