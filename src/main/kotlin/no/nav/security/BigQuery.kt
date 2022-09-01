@@ -76,7 +76,6 @@ class BigQuery(projectID: String) {
 }
 
 class IssueCountRecord(
-    val whenCreated: Instant = Instant.now(),
     val org: String,
     val project: String,
     val type: String,
