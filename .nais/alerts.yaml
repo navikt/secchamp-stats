@@ -1,7 +1,7 @@
 apiVersion: nais.io/v1
 kind: Alert
 metadata:
-  name: secchamps-stats
+  name: secchamp-stats
   namespace: security-champion-admin
   labels:
     team: security-champion-admin
@@ -11,7 +11,7 @@ spec:
       channel: '#security-champion-admin'
   alerts:
     - alert: secchamp-stats has not run for 1 day in {{ clusterName }}
-      expr: 'time() - max(kube_job_status_completion_time{job_name=~"secchamps-stats.+"}) > (60*60*25)'
+      expr: 'time() - max(kube_job_status_completion_time{job_name=~"secchamp-stats.+"}) > (60*60*25)'
       description: "Job is scheduled to run every day, and is responsible for persisting Snyk issue stats to BigQuery."
       action: "Check if Job has run successfully:\n- `kubectl describe cronjob -n security-champion-admin secchamps-stats`\n- `kubectl describe pod -l app=secchamps-stats`\n- `kubectl logs -l app=secchamps-stats --tail=1000`"
       sla: respond within office hours
