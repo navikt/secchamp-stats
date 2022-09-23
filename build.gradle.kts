@@ -1,8 +1,8 @@
-val ktorVersion = "2.0.2"
-val logbackVersion = "1.2.11"
-val logstashEncoderVersion = "7.1.1"
-val junitJupiterVersion = "5.8.2"
-val bigQueryClientVersion = "2.10.10"
+val ktorVersion = "2.1.1"
+val logbackVersion = "1.4.0"
+val logstashEncoderVersion = "7.2"
+val junitJupiterVersion = "5.9.0"
+val bigQueryClientVersion = "2.15.0"
 
 val mainClassName = "no.nav.security.MainKt"
 
