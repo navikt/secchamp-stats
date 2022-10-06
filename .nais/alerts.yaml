@@ -9,6 +9,7 @@ spec:
   receivers:
     slack:
       channel: '#security-champion-admin'
+      send_resolved: false
   alerts:
     - alert: Naisjob failed
       description: Naisjob secchamp-stats failed
