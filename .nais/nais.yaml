@@ -8,6 +8,7 @@ metadata:
 spec:
   image: {{ image }}
   schedule: {{ schedule }}
+  ttlSecondsAfterFinished: 300
   envFrom:
     - secret: secchamp-stats-config
   gcp:
