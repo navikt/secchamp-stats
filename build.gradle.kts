@@ -1,14 +1,14 @@
-val ktorVersion = "2.2.1"
+val ktorVersion = "2.2.2"
 val logbackVersion = "1.4.5"
 val logstashEncoderVersion = "7.2"
-val junitJupiterVersion = "5.9.0"
-val bigQueryClientVersion = "2.19.1"
+val junitJupiterVersion = "5.9.2"
+val bigQueryClientVersion = "2.20.1"
 
 val mainClassName = "no.nav.security.MainKt"
 
 plugins {
-   kotlin("jvm") version "1.7.22"
-   kotlin("plugin.serialization") version "1.7.22"
+   kotlin("jvm") version "1.8.0"
+   kotlin("plugin.serialization") version "1.8.0"
    id("com.github.johnrengelman.shadow") version "7.1.2"
 }
 
