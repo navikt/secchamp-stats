@@ -28,7 +28,7 @@ jobs:
         run: cosign verify --key distroless.pub gcr.io/distroless/java17
       - name: Generate Docker image tag with short sha
         id: dockertag
-        run: echo "docker_img=ghcr.io/${{ github.repository }}:$(git rev-parse --short HEAD)" >> $GITHUB_STATE
+        run: echo "docker_img=ghcr.io/${{ github.repository }}:$(git rev-parse --short HEAD)" >> ${GITHUB_OUTPUT}
       - name: Login to GitHub Docker Registry
         uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a # ratchet:docker/login-action@v2
         with:
@@ -51,7 +51,7 @@ jobs:
       - uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # ratchet:actions/checkout@v3
       - name: Generate Docker image tag
         id: dockertag
-        run: echo "docker_img=ghcr.io/${{ github.repository }}:$(git rev-parse --short HEAD)" >> $GITHUB_STATE
+        run: echo "docker_img=ghcr.io/${{ github.repository }}:$(git rev-parse --short HEAD)" >> ${GITHUB_OUTPUT}
       - uses: nais/deploy/actions/deploy@b8f4a51b3526b46ce68577a66bb4d6533a914eeb # ratchet:nais/deploy/actions/deploy@v1
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
