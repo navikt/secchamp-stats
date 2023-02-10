@@ -1,19 +1,19 @@
-apiVersion: nais.io/v1
-kind: Alert
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
 metadata:
   name: secchamp-stats
-  namespace: security-champion-admin
-  labels:
-    team: security-champion-admin
 spec:
-  receivers:
-    slack:
-      channel: '#security-champion-admin'
-      send_resolved: false
-  alerts:
-    - alert: Naisjob failed
-      description: Naisjob secchamp-stats failed
-      expr: kube_job_failed{job_name=~"^secchamp-stats.*", namespace="security-champion-admin"} > 0
-      for: 1m
-      action: "Check the logs"
-      severity: warning
+  groups:
+    - name: security-champion-admin
+      rules:
+        - alert: Naisjob failed
+          expr: kube_job_failed{job_name=~"^secchamp-stats.*", namespace="security-champion-admin"} > 0
+          for: 5m
+          annotations:
+            consequence: Statistics are not collected
+            action: "check the logs"
+            summary: |-
+              Notifies if the latest run failed
+          labels:
+            namespace: security-champion-admin
+            severity: warning
