@@ -2,6 +2,7 @@ apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
   name: secchamp-stats
+  namespace: security-champion-admin
 spec:
   groups:
     - name: security-champion-admin
