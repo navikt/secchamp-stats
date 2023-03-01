@@ -69,6 +69,9 @@ jobs:
       actions: read # only required for a private repository by github/codeql-action/upload-sarif to get the Action run status
     runs-on: "ubuntu-18.04"
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@7b7aa264d83dc58691451798b4d117d53d21edfe
         with:
